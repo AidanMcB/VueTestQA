@@ -1,0 +1,44 @@
+Deliverables:
+Create a New Project Using the Vue CLI 
+npm packages are fine 
+
+Purpose: 
+- Provide multiple choice questions to the user 
+- Automatically grade and give feedback to them after submission
+
+Should Contain:
+- a data file called questions.json
+    - will contain an array of question objects:
+        - fields for the question    
+        - any number of multiple choice options 
+        - which answer is correct 
+
+This will be imported into the root component and used to creeate your data driven app 
+
+Follow the design mockups proided below, and follow all best practicees for modern JS applications 
+You can use any questions you'd like, or just take ssome from the internent. 
+
+*** REQUIREMENTS ***
+
+- Each question should appear on its own panel, and allow the user to choose a single answer:
+    
+- At the end of the questions, include a submit button. if the user tries to submit before all 
+    questions have been answered THE BORDER OF THE PANEL SHOULD TURN YELLOW on any queestions 
+    that have not been answered, and an error messagee appearss below the submit button.
+
+- Once all questions havee been answered, the quiz can be submitted and automatically graded 
+
+- All questions that have been answered correctly should be highlighted in greeen, with a green 
+    "Correct" in the bottom right corner.
+
+- All questions that weree incorrect should be highlighted in red with a red "Wrong" in the bottom
+    right corner. The crrect answer for all incorrect questions should be highlighted in green. 
+
+- The score should be added to the top of the page indicating how many questions were correct, and 
+    the percentage grade for the quiz   
+
+- The application should have basic responsive css so that it can be viewed on any device 
+
+
+*** Working Notes: Consider Changing question.json object to include key: value pairs to make it easier 
+to iterate through 

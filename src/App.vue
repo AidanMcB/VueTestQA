@@ -1,28 +1,39 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <Header />
+    <h3>Quiz Title</h3>
+    <QuestionsContainer v-bind:questions="questions" />
+
   </div>
 </template>
 
-<script>
-import HelloWorld from './components/HelloWorld.vue'
-
+<script> 
+import QuestionsContainer from './components/QuestionsContainer'
+import Header from './components/layouts/Header'
+import json from './assets/questions.json'
+console.log(json)
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    Header,
+    QuestionsContainer,
+  },
+  data() {
+    return {
+      questions: [...json]
+    }
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.4;
 }
 </style>
