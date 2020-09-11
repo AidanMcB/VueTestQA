@@ -26,9 +26,6 @@ export default {
       value: '123',
     };
   },
-//   mounted() {
-//     this.$emit("choose-answer", this.value);
-//   },
   methods: {
     addAnswer(answer) {
         //emit event, name the event, pass data

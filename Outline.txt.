@@ -1,10 +1,13 @@
-*** Components
+*** Components ***
+    -App 
     -QuestionCard
     -Question
 
-*** Layoutss 
+*** Layoutss ***
     -Header 
-    
 
-*** Styling
+*** Styling ***
     -Save for last
+
+
+=== Method ===

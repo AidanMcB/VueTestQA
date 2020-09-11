@@ -49,3 +49,7 @@ to iterate through
     <!-- <input type="radio" :value="index"/> -->
     <!-- {{ key }} -->
     <!-- @change="selectWinner(game.id, game.pollanswers[indexy].id)" -->
+
+     printThis(x) {
+      console.log(x);
+    },

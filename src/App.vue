@@ -2,8 +2,7 @@
   <div id="app">
     <Header />
     <h3>Quiz Title</h3>
-    <QuestionsContainer v-bind:questions="questions"  v-on:addAnswer="chooseAnswer($event)"/>
-
+    <QuestionsContainer v-bind:questions="questions"  v-on:add-answer-second="chooseAnswer($event)"/>
   </div>
 </template>
 
@@ -21,14 +20,10 @@ export default {
   data() {
     return {
       questions: [...json],
-      answers: ["answer",],
     }
   },
   methods: {
-    chooseAnswer(newAnswer) {
-      this.answers = [...this.answers, newAnswer]
-      console.log("from the child:", newAnswer)
-    }
+
   }
 }
 </script>
