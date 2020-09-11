@@ -3,9 +3,15 @@
     {{ question.id}}.
     {{ question.question}}
     <div v-for="(answers, index, key) in question.options" v-bind:key="index">
-      <input type="radio" :value="question.options[index].id" v-model="question.id"/>
-      <span > {{ key }}</span>
-      <label >{{question.options[index].answer}}</label>
+      <!-- value  -->
+      <input
+        type="radio"
+        :value="question.options[index].id"
+        v-model="question.id"
+        v-on:change="addAnswer(question.options[index].answer)"
+      />
+      <span>{{ key }}</span>
+      <label>{{question.options[index].answer}}</label>
       <br />
     </div>
   </div>
@@ -15,6 +21,20 @@
 export default {
   name: "QuestionCard",
   props: ["question"],
+  data() {
+    return {
+      value: '123',
+    };
+  },
+//   mounted() {
+//     this.$emit("choose-answer", this.value);
+//   },
+  methods: {
+    addAnswer(answer) {
+        //emit event, name the event, pass data
+      this.$emit("addAnswer", answer);
+    },
+  },
 };
 </script>
 
