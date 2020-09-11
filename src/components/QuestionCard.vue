@@ -8,7 +8,7 @@
         type="radio"
         :value="question.options[index].id"
         v-model="question.id"
-        v-on:change="addAnswer(question.options[index].answer)"
+        v-on:change="addAnswer(question.options[index])"
       />
       <span>{{ key }}</span>
       <label>{{question.options[index].answer}}</label>
@@ -27,9 +27,9 @@ export default {
     };
   },
   methods: {
-    addAnswer(answer) {
+    addAnswer(answer, index) {
         //emit event, name the event, pass data
-      this.$emit("addAnswer", answer);
+      this.$emit("addAnswer", answer, index);
     },
   },
 };

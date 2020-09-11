@@ -37,7 +37,21 @@ export default {
       console.log("quiz submitted");
     },
     chooseAnswer(newAnswer) {
-      this.answers = [...this.answers, newAnswer];
+        // console.log(newAnswer)
+        // If the questionId already exists in the answers array, replace the answer
+        //otherwise, add the answer to the array 
+        const answerObj = {
+            answer: newAnswer.answer,
+            id: newAnswer.id,
+            questionId: newAnswer.questionId
+        }
+        if(this.answers.some(ans => ans.questionId === answerObj.questionId)){
+            console.log("same questionId exists")
+            this.answers = this.answers.map(ans => this.answers.find(answer => ans.questionId === answer.questionId) || ans);
+        }else{
+      this.answers = [...this.answers, answerObj];
+      console.log(this.answers)
+        }
     },
   },
 };
