@@ -42,3 +42,14 @@ You can use any questions you'd like, or just take ssome from the internent.
 
 *** Working Notes: Consider Changing question.json object to include key: value pairs to make it easier 
 to iterate through 
+
+ <!-- :key="`${ key }-${ index }`" -->
+    <!-- v-bind:key="index" -->
+    <!-- <div class="optionals" v-for="(key, index) in question.options" v-bind:key="index"> -->
+    <!-- <input type="radio" :value="index"/> -->
+    <!-- {{ key }} -->
+    <!-- @change="selectWinner(game.id, game.pollanswers[indexy].id)" -->
+
+     printThis(x) {
+      console.log(x);
+    },

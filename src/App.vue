@@ -2,8 +2,7 @@
   <div id="app">
     <Header />
     <h3>Quiz Title</h3>
-    <QuestionsContainer v-bind:questions="questions" />
-
+    <QuestionsContainer v-bind:questions="questions"  v-on:add-answer-second="chooseAnswer($event)"/>
   </div>
 </template>
 
@@ -20,8 +19,11 @@ export default {
   },
   data() {
     return {
-      questions: [...json]
+      questions: [...json],
     }
+  },
+  methods: {
+
   }
 }
 </script>
