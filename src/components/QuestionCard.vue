@@ -10,8 +10,8 @@
         v-model="question.id"
         v-on:change="addAnswer(question.options[index])"
       />
-      <span>{{ correct }}</span>
-      <label class="answer-choice"> {{question.options[index].answer}}</label>
+      <button v-on:click="printThis(question.correct)">here it</button>
+        <label class="answer-choice"> {{question.options[index].answer}}</label>
       <br />
     </div>
   </div>
@@ -24,14 +24,18 @@ export default {
   data() {
     return {
       value: '123',
+      correct: undefined,
     };
   },
   methods: {
-    addAnswer(answer, index) {
+    addAnswer(answer) {
         //emit event, name the event, pass data
-        // console.log(answer)
-      this.$emit("addAnswer", answer, index);
+        console.log(answer)
+      this.$emit("addAnswer", answer);
     },
+    printThis(x){
+      console.log(x)
+    }
   },
 };
 </script>

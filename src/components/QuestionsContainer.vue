@@ -6,10 +6,9 @@
     <form @submit="handleSubmit">
       <div v-bind:key="question.id" v-for="(question, index) in questions">
         <QuestionCard
-          v-bind:correct="correct"
           v-bind:index="index"
           v-bind:question="question"
-          v-on:addAnswer="chooseAnswer($event)"
+          v-on:addAnswer="chooseAnswer"
         />
         <!-- v-on:add-answer="$emit('add-answer', question.options[index].answer)" -->
       </div>
@@ -34,19 +33,20 @@ export default {
       answer: "",
       correctAnswers: [...this.questions.map(q => q.correctAnswer)],
       score: 0,
-      correct: undefined
     };
   },
   props: ["questions"],
   methods: {
-    handleSubmit(e) {
+    handleSubmit(e, answer) {
       e.preventDefault();
+      console.log("here 2:",e, answer)
       this.answers.forEach( (answer, index ) => {
         if(answer.answer === this.correctAnswers[index]){
-          this.score += 1
-          this.correct = true
+          answer.correct = true
+          console.log(answer.correct)
         }else{
-          this.correct = false
+            answer.correct = false
+          console.log(answer.correct)
         }
       })
 
