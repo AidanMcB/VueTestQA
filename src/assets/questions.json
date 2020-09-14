@@ -6,28 +6,25 @@
             {
                 "id": "11",
                 "questionId": "41",
-                "answer": "1",
-                "correct": "undefined"
+                "answer": "1"
             },
             {
                 "id": "12",
                 "questionId": "41",
-                "answer": "40",
-                "correct": "undefined"
+                "answer": "40"
             },
             {
                 "id": "13",
                 "questionId": "41",
-                "answer": "5",
-                "correct": "undefined"
+                "answer": "5"
             },
             {
                 "id": "14",
                 "questionId": "41",
-                "answer": "10",
-                "correct": "undefined"
+                "answer": "10"
             }
         ],
+        "correct": "undefined",
         "correctAnswer": "10"
     },
     {
@@ -37,28 +34,25 @@
             {
                 "id": "15",
                 "questionId": "42",
-                "answer": "Trenton",
-                "correct": "undefined"
+                "answer": "Trenton"
             },
             {
                 "id": "16",
                 "questionId": "42",
-                "answer": "Camden",
-                "correct": "undefined"
+                "answer": "Camden"
             },
             {
                 "id": "17",
                 "questionId": "42",
-                "answer": "Austin",
-                "correct": "undefined"
+                "answer": "Austin"
             },
             {
                 "id": "18",
                 "questionId": "42",
-                "answer": "Nashville",
-                "correct": "undefined"
+                "answer": "Nashville"
             }
         ],
+        "correct": "undefined",
         "correctAnswer": "Trenton"
     },
     {
@@ -68,28 +62,25 @@
             {
                 "id": "19",
                 "questionId": "43",
-                "answer": "Ben Franklin Cucumber",
-                "correct": "undefined"
+                "answer": "Ben Franklin Cucumber"
             },
             {
                 "id": "20",
                 "questionId": "43",
-                "answer": "Bencklechick Clumbandstack",
-                "correct": "undefined"
+                "answer": "Bencklechick Clumbandstack"
             },
             {
                 "id": "21",
                 "questionId": "43",
-                "answer": "Benedict Cumberbatch",
-                "correct": "undefined"
+                "answer": "Benedict Cumberbatch"
             },
             {
                 "id": "22",
                 "questionId": "43",
-                "answer": "Bendly Collin",
-                "correct": "undefined"
+                "answer": "Bendly Collin"
             }
         ],
+        "correct": "undefined",
         "correctAnswer": "Benedict Cumberbatch"
     }
 ]

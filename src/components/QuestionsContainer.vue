@@ -4,11 +4,12 @@
       <!-- conditionally render quiz results -->
     </div>
     <form @submit="handleSubmit">
-      <div v-bind:key="question.id" v-for="(question, index) in questions">
+      <div  v-bind:key="question.id" v-for="(question, index) in questions">
         <QuestionCard
+          v-bind:correct="question.correct"
           v-bind:index="index"
           v-bind:question="question"
-          v-on:addAnswer="chooseAnswer"
+          v-on:addAnswer="updateAnswer"
         />
         <!-- v-on:add-answer="$emit('add-answer', question.options[index].answer)" -->
       </div>
@@ -30,28 +31,34 @@ export default {
   data() {
     return {
       answers: [],
+      correct: undefined,
       answer: "",
       correctAnswers: [...this.questions.map(q => q.correctAnswer)],
       score: 0,
+      componentKey: 0,
     };
   },
   props: ["questions"],
   methods: {
-    handleSubmit(e, answer) {
+    forceRerender() {
+      this.componentKey += 1;
+    },
+    handleSubmit(e) {
       e.preventDefault();
-      console.log("here 2:",e, answer)
+      console.log(this.answers  )
       this.answers.forEach( (answer, index ) => {
         if(answer.answer === this.correctAnswers[index]){
-          answer.correct = true
-          console.log(answer.correct)
+          this.questions[index].correct = true
+          // answer.correct = true
         }else{
-            answer.correct = false
-          console.log(answer.correct)
+            this.questions[index].correct = false
+            // answer.correct = false
         }
       })
 
     },
-    chooseAnswer(answer) {
+    updateAnswer(answer) {
+      // console.log(answer)
         // If the questionId already exists in the answers array, replace the answer
         //otherwise, add the answer to the array 
         if(this.answers.some(ans => ans.questionId === answer.questionId)){
@@ -66,6 +73,7 @@ export default {
           //add new answer for question
           this.answers = [...this.answers, answer];
         }
+        // console.log(this.answers)
     },
   },
 };

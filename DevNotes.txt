@@ -53,3 +53,5 @@ to iterate through
      printThis(x) {
       console.log(x);
     },
+
+    change props to an object and specify the data type
