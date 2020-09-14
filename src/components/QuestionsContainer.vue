@@ -3,6 +3,7 @@
     <div class="results">
       <!-- conditionally render quiz results -->
     </div>
+    <p v-if="this.submitted">{{this.score}}/ 10</p>
     <form @submit="handleSubmit">
       <div  v-bind:key="question.id" v-for="(question, index) in questions">
         <QuestionCard
@@ -35,26 +36,25 @@ export default {
       answer: "",
       correctAnswers: [...this.questions.map(q => q.correctAnswer)],
       score: 0,
-      componentKey: 0,
+      submitted: false,
     };
   },
   props: ["questions"],
   methods: {
-    forceRerender() {
-      this.componentKey += 1;
-    },
     handleSubmit(e) {
       e.preventDefault();
       console.log(this.answers  )
       this.answers.forEach( (answer, index ) => {
         if(answer.answer === this.correctAnswers[index]){
           this.questions[index].correct = true
+          this.score += 1
           // answer.correct = true
         }else{
             this.questions[index].correct = false
             // answer.correct = false
         }
       })
+      this.submitted = true
 
     },
     updateAnswer(answer) {
