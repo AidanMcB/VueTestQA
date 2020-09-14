@@ -4,8 +4,10 @@
       <!-- conditionally render quiz results -->
     </div>
     <form @submit="handleSubmit">
-      <div v-bind:key="question.id" v-for="question in questions">
+      <div v-bind:key="question.id" v-for="(question, index) in questions">
         <QuestionCard
+          v-bind:correct="correct"
+          v-bind:index="index"
           v-bind:question="question"
           v-on:addAnswer="chooseAnswer($event)"
         />
@@ -13,7 +15,6 @@
       </div>
       <input type="submit" value="Submit" class="btn" />
     </form>
-    <button @click="printThis('x')">here</button>
   </div>
 </template>
 
@@ -24,34 +25,46 @@ export default {
   components: {
     QuestionCard,
   },
+  // mounted() {
+  //   this.correctAnswers = this.questions.map(q => q.correctAnswer)
+  // },
   data() {
     return {
       answers: [],
       answer: "",
+      correctAnswers: [...this.questions.map(q => q.correctAnswer)],
+      score: 0,
+      correct: undefined
     };
   },
   props: ["questions"],
   methods: {
     handleSubmit(e) {
       e.preventDefault();
-      console.log("quiz submitted");
+      this.answers.forEach( (answer, index ) => {
+        if(answer.answer === this.correctAnswers[index]){
+          this.score += 1
+          this.correct = true
+        }else{
+          this.correct = false
+        }
+      })
+
     },
-    chooseAnswer(answerObj) {
-        console.log(answerObj)
+    chooseAnswer(answer) {
         // If the questionId already exists in the answers array, replace the answer
         //otherwise, add the answer to the array 
-        // const answerObj = {
-        //     answer: newAnswer.answer,
-        //     id: newAnswer.id,
-        //     questionId: newAnswer.questionId
-        // }
-        if(this.answers.some(ans => ans.questionId === answerObj.questionId)){
-            console.log("same questionId exists")
-            //filter 
-            this.answers = this.answers.map(ans => this.answers.find(answer => ans.questionId === answer.questionId) || ans);
+        if(this.answers.some(ans => ans.questionId === answer.questionId)){
+            let double = this.answers.find( a => a.questionId == answer.questionId)
+            let index = this.answers.indexOf(double)
+            this.answers = [
+              ...this.answers.slice(0, index), //copy everything before answer
+              answer,                          // add the new answer 
+              ...this.answers.slice(index +1) //copy everything after answer
+            ]
         }else{
-      this.answers = [...this.answers, answerObj];
-      console.log(this.answers)
+          //add new answer for question
+          this.answers = [...this.answers, answer];
         }
     },
   },

@@ -10,7 +10,7 @@
 import QuestionsContainer from './components/QuestionsContainer'
 import Header from './components/layouts/Header'
 import json from './assets/questions.json'
-console.log(json)
+
 export default {
   name: 'App',
   components: {
@@ -23,7 +23,7 @@ export default {
     }
   },
   methods: {
-
+    
   }
 }
 </script>
