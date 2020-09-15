@@ -1,25 +1,22 @@
 <template>
-  <div class="question-card">
-    <p v-if="correct == true">Correct</p>
-    <p v-else-if="correct == false">Incorrect</p>
+  <div v-bind:class="dynamic">
     {{ index + 1}}.
     {{ question.question}}
-    <div
-      v-bind:class="dynamic"
-      v-for="(answers, index, key) in question.options"
-      v-bind:key="key"
-    >
+    <div  v-for="(answers, index, key) in question.options" v-bind:key="key" class="options">
       <!-- value  -->
-      <input
+      <div v-bind:class="showAnswer(question)" >
+      <input 
         type="radio"
         :value="question.options[index].id"
         v-model="question.id"
         v-on:change="addAnswer(question.options[index])"
       />
-      <!-- <button v-on:click="printThis(question.correct)">here</button> -->
-      <label class="answer-choice">{{question.options[index].answer}}</label>
+      <label class="answers">{{question.options[index].answer}}</label>
+      </div>
       <br />
     </div>
+    <p class="cor-tag" v-if="status == 'correct'">Correct</p>
+    <p class="wrong-tag" v-else-if="status == 'incorrect'">Incorrect</p>
   </div>
 </template>
 
@@ -27,7 +24,7 @@
 //  v-on:change="addAnswer(question.options[index])"
 export default {
   name: "QuestionCard",
-  props: ["question", "index", "correct"],
+  props: ["question", "index", "status", "answer"],
   data() {
     return {
       // questionId: '',
@@ -35,24 +32,36 @@ export default {
       // correct: undefined,
     };
   },
-  computed:{
-    dynamic: function(ans){
-        var theClass = '';
-        if(ans.correct == true){
-            theClass = 'correct';
-        }else if(ans.correct == false){
-            theClass = 'incorrect'
-        }else{
-          theClass = 'answer'
-        }
-        console.log(ans.correct)
-        return theClass
+  computed: {
+    dynamic: function (ans) {
+      let outerCardClass = "";
+
+      if (ans.status == "correct") {
+        outerCardClass = "correct";
+      } else if (ans.status == "incorrect") {
+        outerCardClass = "incorrect";
+      } else if (ans.status == "no-answer") {
+        outerCardClass = "no-answer";
+      } else {
+        outerCardClass = "qCard";
+      }
+      // console.log(ans.correct)
+      return outerCardClass;
+    },
+    showAnswer: function (ans, question) {
+      console.log(ans, question)
+      let rightAnswer = "undecorated";
+      if (ans.status == "incorrect"){
+        console.log("true")
+        rightAnswer = "right-answer"
+      }
+      return rightAnswer;
+  
+
     }
-},
+  },
   methods: {
     addAnswer(answer) {
-      // console.log(answer)
-      // this.answer = answer
       this.$emit("addAnswer", answer);
     },
     printThis(x) {
@@ -63,26 +72,67 @@ export default {
 </script>
 
 <style scoped>
-.question-card {
-  border: 1px solid black;
+.undecorated{
+  text-decoration: none;
+}
+.right-answer{
+  background-color: green;
+  color: green;
+}
+.no-answer {
+  text-align: left;
+  border: 3px solid yellow;
+  border-radius: 10px;
+  box-shadow: 1px 1px 1px 1px gray;
   margin: 1.25em;
   padding: 1.25em;
 }
-.answers {
-  padding: 0.1em;
-  margin-left: 1.5em;
+.qCard {
+  text-align: left;
+  border: 1px solid black;
+  border-radius: 10px;
+  box-shadow: 1px 1px 1px 1px gray;
+  margin: 1.25em;
+  padding: 1.25em;
 }
 .correct {
+  text-align: left;
   padding: 0.1em;
   margin-left: 1.5em;
-  color: green;
+  border: 3px solid green;
+  border-radius: 10px;
+  box-shadow: 1px 1px 1px 1px gray;
+  margin: 1.25em;
+  padding: 1.25em;
 }
 .incorrect {
+  text-align: left;
   padding: 0.1em;
   margin-left: 1.5em;
-  color: red;
+  border: 2px solid red;
+  border-radius: 10px;
+  box-shadow: 1px 1px 1px 1px gray;
+  margin: 1.25em;
+  padding: 1.25em;
+}
+.options {
+  padding: 0.1em;
+  margin-left: 1em;
+}
+.answers {
+  margin-left: 1em;
 }
 .answer-choice {
   margin-left: 0.25em;
+}
+.cor-tag {
+  vertical-align: bottom;
+  text-align: right;
+  color: green;
+}
+.wrong-tag {
+  vertical-align: bottom;
+  text-align: right;
+  color: red;
 }
 </style>
