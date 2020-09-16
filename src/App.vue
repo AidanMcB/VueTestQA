@@ -41,7 +41,7 @@ body {
 }
 .title{
   margin-top: 1.5em;
-  margin-left: 5em;
+  margin-left: 2em;
   font-size: 2em;
 }
 </style>

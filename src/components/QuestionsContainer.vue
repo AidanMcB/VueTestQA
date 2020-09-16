@@ -183,4 +183,14 @@ export default {
   font-weight: 700;
   color: green;
 }
+@media all and (max-width: 550px) and (min-width: 301px){
+  .main-page{
+    width: 100%;
+  }
+}
+@media all and (max-width: 300px){
+  *{
+    font-size: .65em;
+  }
+}
 </style>
