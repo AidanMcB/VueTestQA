@@ -62,7 +62,7 @@ export default {
   methods: {
     handleSubmit(e) {
       e.preventDefault();
-      //adds answer object with a sstatus of answered
+      //adds answer object with a status of answered
       this.updateAnsweredStatus();
       if (this.answers.length < this.questions.length) {
         //set the questions that aren't answered to "no-answer"

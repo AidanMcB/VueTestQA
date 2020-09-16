@@ -57,13 +57,13 @@ export default {
   },
   methods: {
     //depending on the questions status after submission, style the q card
-    dynamic(ans) {
+    dynamic(question) {
       let outerCardClass = "";
-      if (ans.status == "correct") {
+      if (question.status == "correct") {
         outerCardClass = "correct";
-      } else if (ans.status == "incorrect") {
+      } else if (question.status == "incorrect") {
         outerCardClass = "incorrect";
-      } else if (ans.status == "no-answer") {
+      } else if (question.status == "no-answer") {
         outerCardClass = "no-answer";
       } else {
         outerCardClass = "qCard";
