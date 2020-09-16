@@ -37,8 +37,11 @@ export default {
 body {
   font-family: Arial, Helvetica, sans-serif;
   line-height: 1.4;
+  background-color: lightgray;
 }
 .title{
-  margin-left: 2em;
+  margin-top: 1.5em;
+  margin-left: 5em;
+  font-size: 2em;
 }
 </style>

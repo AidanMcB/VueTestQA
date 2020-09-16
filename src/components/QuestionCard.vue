@@ -92,6 +92,7 @@ export default {
   width: 75%;
 }
 .no-answer {
+  background-color: white;
   text-align: left;
   border: .25em solid yellow;
   border-radius: 10px;
@@ -100,6 +101,7 @@ export default {
   padding: 1.25em;
 }
 .qCard {
+  background-color: white;
   text-align: left;
   border: .1em solid black;
   border-radius: 10px;
@@ -108,6 +110,7 @@ export default {
   padding: 1.25em;
 }
 .correct {
+  background-color: white;
   text-align: left;
   padding: 0.1em;
   margin-left: 1.5em;
@@ -118,6 +121,7 @@ export default {
   padding-bottom: .25em;
 }
 .incorrect {
+  background-color: white;
   text-align: left;
   padding: 0.1em;
   margin-left: 1.5em;

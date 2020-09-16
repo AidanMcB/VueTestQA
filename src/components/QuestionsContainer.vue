@@ -23,7 +23,7 @@
     <div
       v-if="unfinished"
       class="error-msg"
-    >Answer all questions before submitting. Unanswered questions are displayed in yellow</div>
+    >Answer all questions before submitting. Unanswered questions are displayed in yellow.</div>
   </div>
 </template>
 
@@ -168,6 +168,8 @@ export default {
 }
 .main-page {
   text-align: center;
+  width: 80%;
+  margin: auto;
 }
 .results {
   text-decoration: underline;
