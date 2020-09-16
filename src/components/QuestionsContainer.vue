@@ -81,10 +81,10 @@ export default {
       if (this.answers.length < this.questions.length) {
         //set the questions that aren't answered to "no-answer"
         //filter questions to an array that aren't answered
+          this.unfinished = true;
         this.myQuestions.forEach((q) => {
           if (q.status !== "answered") {
             q.status = "no-answer";
-            this.unifnished = true;
             this.submitted = false;
           }
         });
@@ -105,7 +105,7 @@ export default {
           }
         });
         this.submitted = true;
-        this.finished = true;
+        this.unfinished = false;
         //if questions are unanswered, display error message
         //do not submit the form
       }
@@ -145,6 +145,7 @@ export default {
   border: 1px solid black;
   border-radius: 5px;
   background-color: green;
+  margin-bottom: 2em;
 }
 .reload-btn {
   padding: 0.5em;
@@ -153,9 +154,11 @@ export default {
   border: 1px solid black;
   border-radius: 5px;
   background-color: green;
+  margin-bottom: 2em;
 }
 .error-msg {
   color: red;
+  padding-bottom: 3em;
 }
 .main-page {
   text-align: center;

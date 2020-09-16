@@ -1,13 +1,12 @@
 <template>
   <div v-bind:class="dynamic(question)" :key="componentKey">
-    {{ index + 1}}.
-    {{ question.question}}
+    <p class="question-text">  {{ index + 1}}. {{ question.question}}</p>
     <div
       v-for="(answers, index) in question.options"
       v-bind:key="answers.id"
       v-bind:class="{correctAnswer: (status == 'incorrect' && question.options[index].answer == question.correctAnswer)}"
     >
-      <div>
+      <div class='answer-choice'>
         <input
           type="radio"
           :value="question.options[index].id"
@@ -18,7 +17,7 @@
       </div>
     </div>
     <p class="cor-tag" v-if="status == 'correct'">Correct</p>
-    <p class="wrong-tag" v-else-if="status == 'incorrect'">Incorrect</p>
+    <p class="wrong-tag" v-else-if="status == 'incorrect'">Wrong</p>
   </div>
 </template>
 
@@ -83,59 +82,63 @@ export default {
 .undecorated {
   text-decoration: none;
 }
-.active {
-  color: blue;
-  background-color: blue;
-}
 .correctAnswer {
-  background-color: green;
-  /* color: green; */
+  color: white;
+  background-color:limegreen;
+  border: 4px solid green;
+  border-radius: 10px;
+  padding: .15em;
+  width: 75%;
 }
 .no-answer {
   text-align: left;
-  border: 3px solid yellow;
+  border: .25em solid yellow;
   border-radius: 10px;
-  box-shadow: 1px 1px 1px 1px gray;
-  margin: 1.25em;
+  box-shadow: 2px 2px 2px 2px gray;
+  margin: 2.25em;
   padding: 1.25em;
 }
 .qCard {
   text-align: left;
-  border: 1px solid black;
+  border: .1em solid black;
   border-radius: 10px;
   box-shadow: 1px 1px 1px 1px gray;
-  margin: 1.25em;
+  margin: 2.25em;
   padding: 1.25em;
 }
 .correct {
   text-align: left;
   padding: 0.1em;
   margin-left: 1.5em;
-  border: 3px solid green;
+  border: .25em solid green;
   border-radius: 10px;
-  box-shadow: 1px 1px 1px 1px gray;
-  margin: 1.25em;
+  /* box-shadow: 1px 1px 1px 1px gray; */
+  margin: 2.25em;
   padding: 1.25em;
+  padding-bottom: .25em;
+
 }
 .incorrect {
   text-align: left;
   padding: 0.1em;
   margin-left: 1.5em;
-  border: 2px solid red;
+  border: .23em solid red;
   border-radius: 10px;
-  box-shadow: 1px 1px 1px 1px gray;
-  margin: 1.25em;
+  /* box-shadow: 1px 1px 1px 1px red; */
+  margin: 2.25em;
   padding: 1.25em;
+  padding-bottom: .25em;
 }
 .options {
   padding: 0.1em;
-  margin-left: 1em;
+  margin-left: 2em;
 }
 .answers {
   margin-left: 1em;
 }
 .answer-choice {
-  margin-left: 0.25em;
+  padding: .25em;
+  margin-left: 1.25em;
 }
 .cor-tag {
   vertical-align: bottom;
@@ -146,5 +149,8 @@ export default {
   vertical-align: bottom;
   text-align: right;
   color: red;
+}
+.question-text{
+  margin-bottom: .75em;
 }
 </style>
