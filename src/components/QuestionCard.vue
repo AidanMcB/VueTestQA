@@ -9,11 +9,12 @@
       <div class='answer-choice'>
         <input
           type="radio"
+          :id="question.options[index].id"
           :value="question.options[index].id"
           v-model="question.id"
           v-on:change="updateAnswer(question.options[index])"
         />
-        <label class="answers">{{question.options[index].answer}}</label>
+        <label :for="question.options[index].id" class="answers">{{question.options[index].answer}}</label>
       </div>
     </div>
     <p class="cor-tag" v-if="status == 'correct'">Correct</p>
@@ -38,10 +39,12 @@ export default {
       componentKey: 0,
     };
   },
+  //when this component is updated, run the dynamc method passing it the question object
   updated() {
     this.dynamic(this.question);
   },
   computed: {
+    //when the quiz is submitted, add style to the right answer that was missed
     showAnswer: function (ans) {
       let rightAnswer = "undecorated";
       if (ans.status == "incorrect" && ans.rightAnswer == this.rightAnswer) {
@@ -53,6 +56,7 @@ export default {
     },
   },
   methods: {
+    //depending on the questions status after submission, style the q card
     dynamic(ans) {
       let outerCardClass = "";
       if (ans.status == "correct") {
@@ -66,7 +70,7 @@ export default {
       }
       return outerCardClass;
     },
-  
+    //emit the updateAnswer event to the parent component with the answer object
     updateAnswer(answer) {
       this.myAnswer = answer;
       this.$emit("updateAnswer", answer);
@@ -109,11 +113,9 @@ export default {
   margin-left: 1.5em;
   border: .25em solid green;
   border-radius: 10px;
-  /* box-shadow: 1px 1px 1px 1px gray; */
   margin: 2.25em;
   padding: 1.25em;
   padding-bottom: .25em;
-
 }
 .incorrect {
   text-align: left;
@@ -121,7 +123,6 @@ export default {
   margin-left: 1.5em;
   border: .23em solid red;
   border-radius: 10px;
-  /* box-shadow: 1px 1px 1px 1px red; */
   margin: 2.25em;
   padding: 1.25em;
   padding-bottom: .25em;

@@ -3,7 +3,7 @@
     <div>
       <p class="results" v-if="this.submitted">Results</p>
       <p v-if="this.submitted">You got {{this.score}} / {{this.questions.length}} questions correct</p>
-      <p class="percent" v-if="this.submitted">{{ (this.score / this.myQuestions.length) * 100 }} %</p>
+      <p v-bind:class="percent" v-if="this.submitted">{{ (this.score / this.myQuestions.length) * 100 }} %</p>
     </div>
     <form @submit="handleSubmit">
       <div v-bind:key="question.id" v-for="(question, index) in myQuestions">
@@ -48,6 +48,17 @@ export default {
     };
   },
   props: ["questions"],
+  computed: {
+    percent() {
+      let percent = ""
+      if(this.score > 6){
+        percent = "pass"
+      }else{
+        percent = "fail"
+      }
+      return percent
+    }
+  },
   methods: {
     handleSubmit(e) {
       e.preventDefault();
@@ -162,8 +173,12 @@ export default {
   text-decoration: underline;
   font-size: 1em;
 }
-.percent {
+.fail {
   font-weight: 700;
   color: red;
+}
+.pass {
+  font-weight: 700;
+  color: green;
 }
 </style>
