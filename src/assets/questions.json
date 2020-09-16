@@ -31,7 +31,7 @@
     {
         "id": "2",
         "qId": "42",
-        "question": "What is the capitol of New Jersey?",
+        "question": "What is the capital of New Jersey?",
         "options": [
             {
                 "id": "15",
@@ -85,5 +85,208 @@
         ],
         "status": "undefined",
         "correctAnswer": "Benedict Cumberbatch"
+    },
+    {
+        "id": "4",
+        "qId": "44",
+        "question": "What was the first electronic general-purposee digital computer called?",
+        "options": [
+            {
+                "id": "23",
+                "questionId": "44",
+                "answer": "Apple"
+            },
+            {
+                "id": "24",
+                "questionId": "44",
+                "answer": "James Franco"
+            },
+            {
+                "id": "25",
+                "questionId": "44",
+                "answer": "ENIAC"
+            },
+            {
+                "id": "26",
+                "questionId": "44",
+                "answer": "ASAP"
+            }
+        ],
+        "status": "undefined",
+        "correctAnswer": "ENIAC"
+    },
+    {
+        "id": "5",
+        "qId": "45",
+        "question": "What is the capital of Peru?",
+        "options": [
+            {
+                "id": "27",
+                "questionId": "45",
+                "answer": "Antartica"
+            },
+            {
+                "id": "28",
+                "questionId": "45",
+                "answer": "James Bond"
+            },
+            {
+                "id": "29",
+                "questionId": "45",
+                "answer": "Lima"
+            },
+            {
+                "id": "30",
+                "questionId": "45",
+                "answer": "1,056"
+            }
+        ],
+        "status": "undefined",
+        "correctAnswer": "Lima"
+    },
+    {
+        "id": "6",
+        "qId": "46",
+        "question": "Which of the following is a JavaScript framework?",
+        "options": [
+            {
+                "id": "31",
+                "questionId": "46",
+                "answer": "Vue.js"
+            },
+            {
+                "id": "32",
+                "questionId": "46",
+                "answer": "The French Revolution"
+            },
+            {
+                "id": "33",
+                "questionId": "46",
+                "answer": "Dance Dance Revolution"
+            },
+            {
+                "id": "34",
+                "questionId": "46",
+                "answer": "a + b = c"
+            }
+        ],
+        "status": "undefined",
+        "correctAnswer": "Vue.js"
+    },
+    {
+        "id": "7",
+        "qId": "47",
+        "question": "What will be the result of \" 1 === '1' \" in JavaScript?",
+        "options": [
+            {
+                "id": "35",
+                "questionId": "47",
+                "answer": "the boolean value true"
+            },
+            {
+                "id": "36",
+                "questionId": "47",
+                "answer": "the boolean value false"
+            },
+            {
+                "id": "37",
+                "questionId": "47",
+                "answer": "NaN"
+            },
+            {
+                "id": "38",
+                "questionId": "47",
+                "answer": "2"
+            }
+        ],
+        "status": "undefined",
+        "correctAnswer": "the boolean value false"
+    },
+    {
+        "id": "8",
+        "qId": "48",
+        "question": "Who is Darth Vader's son?",
+        "options": [
+            {
+                "id": "39",
+                "questionId": "48",
+                "answer": "Han Solo"
+            },
+            {
+                "id": "40",
+                "questionId": "48",
+                "answer": "Chewbacca"
+            },
+            {
+                "id": "41",
+                "questionId": "48",
+                "answer": "Jar-Jar Binks"
+            },
+            {
+                "id": "42",
+                "questionId": "48",
+                "answer": "Luke Skywalker"
+            }
+        ],
+        "status": "undefined",
+        "correctAnswer": "Luke Skywalker"
+    },
+    {
+        "id": "9",
+        "qId": "49",
+        "question": "What is the homeworld of Anikan and Luke Skywalker?",
+        "options": [
+            {
+                "id": "43",
+                "questionId": "49",
+                "answer": "New Jersey"
+            },
+            {
+                "id": "44",
+                "questionId": "49",
+                "answer": "Alaska"
+            },
+            {
+                "id": "45",
+                "questionId": "49",
+                "answer": "Tatooine"
+            },
+            {
+                "id": "46",
+                "questionId": "49",
+                "answer": "Mario's Castle"
+            }
+        ],
+        "status": "undefined",
+        "correctAnswer": "Tatooine"
+    },
+    {
+        "id": "10",
+        "qId": "50",
+        "question": "What color is Mace Windu's lightsaber?",
+        "options": [
+            {
+                "id": "47",
+                "questionId": "50",
+                "answer": "he uses a gun"
+            },
+            {
+                "id": "48",
+                "questionId": "50",
+                "answer": "invisible"
+            },
+            {
+                "id": "49",
+                "questionId": "50",
+                "answer": "rainbow"
+            },
+            {
+                "id": "50",
+                "questionId": "50",
+                "answer": "purple"
+            }
+        ],
+        "status": "undefined",
+        "correctAnswer": "purple"
     }
 ]

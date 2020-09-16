@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Header />
-    <h3>Quiz Title</h3>
+    <h3 class="title">Quiz Title</h3>
     <QuestionsContainer v-bind:questions="questions"  v-on:add-answer-second="chooseAnswer($event)"/>
   </div>
 </template>
@@ -37,5 +37,8 @@ export default {
 body {
   font-family: Arial, Helvetica, sans-serif;
   line-height: 1.4;
+}
+.title{
+  margin-left: 2em;
 }
 </style>

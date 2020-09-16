@@ -2,19 +2,20 @@
   <div class="main-page">
     <div>
       <p class="results" v-if="this.submitted">Results</p>
-      <p v-if="this.submitted">You got {{this.score}} / 10 questions correct</p>
-      <p class="percent" v-if="this.submitted">{{ (this.score / this.myQuestions.length) * 100 }} %</p>
+      <p v-if="this.submitted">You got {{this.score}} / {{this.questions.length}} questions correct</p>
+      <p v-bind:class="percent" v-if="this.submitted">{{ (this.score / this.myQuestions.length) * 100 }} %</p>
     </div>
     <form @submit="handleSubmit">
-      <div v-bind:key="question.id" v-for="(question, index) in questions">
+      <div v-bind:key="question.id" v-for="(question, index) in myQuestions">
         <QuestionCard
           v-bind:rightAnswer="question.correctAnswer"
           v-bind:status="question.status"
           v-bind:index="index"
           v-bind:question="question"
-          v-on:addAnswer="updateAnswer"
+          v-bind:answers="answers"
+          v-bind:comKey="comKey"
+          v-on:updateAnswer="chooseAnswer"
         />
-        <!-- v-on:add-answer="$emit('add-answer', question.options[index].answer)" -->
       </div>
       <input v-if="!this.submitted" type="submit" value="Submit" class="submit-btn" />
       <input v-else v-on:click="restartQuiz" class="reload-btn" value="Reload" type="button" />
@@ -43,46 +44,53 @@ export default {
       score: 0,
       submitted: false,
       myQuestions: this.questions,
-      missedAnswer: "",
+      comKey: 0,
     };
   },
   props: ["questions"],
+  computed: {
+    percent() {
+      let percent = ""
+      if(this.score > 6){
+        percent = "pass"
+      }else{
+        percent = "fail"
+      }
+      return percent
+    }
+  },
   methods: {
     handleSubmit(e) {
       e.preventDefault();
-      //sort the answers
-      const answers = this.answers.sort((a, b) => {
-        return a.questionId - b.questionId;
-      });
-      //check that all questions have beeen answered
-      if (this.myQuestions.every((q) => q.status == "answered")) {
+      //adds answer object with a sstatus of answered
+      this.updateAnsweredStatus();
+      if (this.answers.length < this.questions.length) {
+        //set the questions that aren't answered to "no-answer"
+        this.setUnansweredQuestions();
+      } else {
+        //sort the answers
+        const answers = this.answers.sort((a, b) => {
+          return a.questionId - b.questionId;
+        });
         //check if the questions are correct or incorrect
         //increment or decrement the score accordingly
         answers.forEach((answer, index) => {
           if (answer.answer === this.correctAnswers[index]) {
-            this.questions[index].status = "correct";
+            this.myQuestions[index].status = "correct";
             this.score += 1;
           } else {
-            this.questions[index].status = "incorrect";
+            this.myQuestions[index].status = "incorrect";
           }
         });
+        //submit and finish the quiz
         this.submitted = true;
-      } else {
-        //if questions are unanswered, display error message
-        //do not submit the form
-        this.myQuestions.forEach((q) => {
-          if (q.status == "undefined") {
-            q.status = "no-answer";
-          }
-        });
-        console.log(this.myQuestions);
-        this.submitted = false;
-        this.unfinished = true;
+        this.unfinished = false;
       }
     },
-    updateAnswer(answer) {
+    chooseAnswer(answer) {
       // If the questionId already exists in the answers array, replace the answer
       //otherwise, add the answer to the array
+      //prevents answers array from having two answers for the same question
       if (this.answers.some((ans) => ans.questionId === answer.questionId)) {
         let double = this.answers.find(
           (a) => a.questionId == answer.questionId
@@ -97,44 +105,66 @@ export default {
         //add new answer for question
         this.answers = [...this.answers, answer];
       }
-      //answered the question
-      let qAnswered = this.myQuestions.find((q) => q.qId === answer.questionId);
-      qAnswered.status == "answered";
-      let index = this.myQuestions.indexOf(qAnswered);
-      this.myQuestions = [
-        ...this.myQuestions.slice(0, index), //copy everything before
-        { ...qAnswered, status: "answered" }, // add the new question with new status
-        ...this.myQuestions.slice(index + 1), //copy everything after
-      ];
     },
-    restartQuiz(){
-       if(this.submitted){
-        window.location.reload()
+    updateAnsweredStatus() {
+      //adds answer object with a status of "answered"
+      this.answers.forEach((answer) => {
+        let qAnswered = this.myQuestions.find(
+          (q) => q.qId === answer.questionId
+        );
+        let index = this.myQuestions.indexOf(qAnswered);
+        this.myQuestions = [
+          ...this.myQuestions.slice(0, index), //copy everything before
+          { ...qAnswered, status: "answered" }, // add the new question with new status
+          ...this.myQuestions.slice(index + 1), //copy everything after
+        ];
+      });
+    },
+    setUnansweredQuestions() {
+      //if any questions are not answered, set their status to no-answer
+      //set submitted to false to render error message
+      this.unfinished = true;
+      this.myQuestions.forEach((q) => {
+        if (q.status !== "answered") {
+          q.status = "no-answer";
+          this.submitted = false;
+        }
+      });
+      //add to comKey to ensure component rerenders
+      this.comKey += 1;
+    },
+    restartQuiz() {
+      //reload the window if the quiz is submitted
+      if (this.submitted) {
+        window.location.reload();
       }
-    }
+    },
   },
 };
 </script>
 
 <style scoped>
 .submit-btn {
-  padding: .5em;
+  padding: 0.5em;
   font-size: 1em;
   color: white;
   border: 1px solid black;
   border-radius: 5px;
   background-color: green;
+  margin-bottom: 2em;
 }
-.reload-btn{
-    padding: .5em;
+.reload-btn {
+  padding: 0.5em;
   font-size: 1em;
   color: white;
   border: 1px solid black;
   border-radius: 5px;
   background-color: green;
+  margin-bottom: 2em;
 }
 .error-msg {
   color: red;
+  padding-bottom: 3em;
 }
 .main-page {
   text-align: center;
@@ -143,8 +173,12 @@ export default {
   text-decoration: underline;
   font-size: 1em;
 }
-.percent{
+.fail {
   font-weight: 700;
   color: red;
+}
+.pass {
+  font-weight: 700;
+  color: green;
 }
 </style>
