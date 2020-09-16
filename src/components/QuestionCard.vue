@@ -66,13 +66,10 @@ export default {
       }
       return outerCardClass;
     },
-    forceRerender() {
-      this.componentKey += 1;
-    },
+  
     updateAnswer(answer) {
       this.myAnswer = answer;
       this.$emit("updateAnswer", answer);
-      this.$emit("forceRerender", this.forceRerender);
     },
   },
 };

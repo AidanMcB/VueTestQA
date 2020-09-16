@@ -2,7 +2,7 @@
   <div class="main-page">
     <div>
       <p class="results" v-if="this.submitted">Results</p>
-      <p v-if="this.submitted">You got {{this.score}} / 10 questions correct</p>
+      <p v-if="this.submitted">You got {{this.score}} / {{this.questions.length}} questions correct</p>
       <p class="percent" v-if="this.submitted">{{ (this.score / this.myQuestions.length) * 100 }} %</p>
     </div>
     <form @submit="handleSubmit">
@@ -15,9 +15,7 @@
           v-bind:answers="answers"
           v-bind:comKey="comKey"
           v-on:updateAnswer="chooseAnswer"
-          v-on:forceRerender="testIt"
         />
-        <!-- v-on:add-answer="$emit('add-answer', question.options[index].answer)" -->
       </div>
       <input v-if="!this.submitted" type="submit" value="Submit" class="submit-btn" />
       <input v-else v-on:click="restartQuiz" class="reload-btn" value="Reload" type="button" />
@@ -46,49 +44,18 @@ export default {
       score: 0,
       submitted: false,
       myQuestions: this.questions,
-      missedAnswer: "",
       comKey: 0,
     };
   },
   props: ["questions"],
-  updated() {
-    // console.log("HERE HERE");
-  },
   methods: {
-    testIt(forceRerender){
-      // console.log("test it", forceRerender)
-      forceRerender()
-    },
     handleSubmit(e) {
       e.preventDefault();
-      //iterate over answers array
-      this.answers.forEach((answer) => {
-        //find the question in the questions array
-        let qAnswered = this.myQuestions.find(
-          (q) => q.qId === answer.questionId
-        );
-        //get the index of that question that
-        let index = this.myQuestions.indexOf(qAnswered);
-        //update myQuestion to set status to answered on that question
-        this.myQuestions = [
-          ...this.myQuestions.slice(0, index), //copy everything before
-          { ...qAnswered, status: "answered" }, // add the new question with new status
-          ...this.myQuestions.slice(index + 1), //copy everything after
-        ];
-      });
-
-      // if there are less than 10 answers
+      //adds answer object with a sstatus of answered
+      this.updateAnsweredStatus();
       if (this.answers.length < this.questions.length) {
         //set the questions that aren't answered to "no-answer"
-        //filter questions to an array that aren't answered
-          this.unfinished = true;
-        this.myQuestions.forEach((q) => {
-          if (q.status !== "answered") {
-            q.status = "no-answer";
-            this.submitted = false;
-          }
-        });
-        this.comKey += 1
+        this.setUnansweredQuestions();
       } else {
         //sort the answers
         const answers = this.answers.sort((a, b) => {
@@ -104,15 +71,15 @@ export default {
             this.myQuestions[index].status = "incorrect";
           }
         });
+        //submit and finish the quiz
         this.submitted = true;
         this.unfinished = false;
-        //if questions are unanswered, display error message
-        //do not submit the form
       }
     },
     chooseAnswer(answer) {
       // If the questionId already exists in the answers array, replace the answer
       //otherwise, add the answer to the array
+      //prevents answers array from having two answers for the same question
       if (this.answers.some((ans) => ans.questionId === answer.questionId)) {
         let double = this.answers.find(
           (a) => a.questionId == answer.questionId
@@ -128,7 +95,35 @@ export default {
         this.answers = [...this.answers, answer];
       }
     },
+    updateAnsweredStatus() {
+      //adds answer object with a status of "answered"
+      this.answers.forEach((answer) => {
+        let qAnswered = this.myQuestions.find(
+          (q) => q.qId === answer.questionId
+        );
+        let index = this.myQuestions.indexOf(qAnswered);
+        this.myQuestions = [
+          ...this.myQuestions.slice(0, index), //copy everything before
+          { ...qAnswered, status: "answered" }, // add the new question with new status
+          ...this.myQuestions.slice(index + 1), //copy everything after
+        ];
+      });
+    },
+    setUnansweredQuestions() {
+      //if any questions are not answered, set their status to no-answer
+      //set submitted to false to render error message
+      this.unfinished = true;
+      this.myQuestions.forEach((q) => {
+        if (q.status !== "answered") {
+          q.status = "no-answer";
+          this.submitted = false;
+        }
+      });
+      //add to comKey to ensure component rerenders
+      this.comKey += 1;
+    },
     restartQuiz() {
+      //reload the window if the quiz is submitted
       if (this.submitted) {
         window.location.reload();
       }
