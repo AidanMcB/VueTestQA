@@ -23,7 +23,7 @@
     <div
       v-if="unfinished"
       class="error-msg"
-    >Answer all questions before submitting. Unanswered questions are displayed in yellow</div>
+    >Answer all questions before submitting. Unanswered questions are displayed in yellow.</div>
   </div>
 </template>
 
@@ -62,7 +62,7 @@ export default {
   methods: {
     handleSubmit(e) {
       e.preventDefault();
-      //adds answer object with a sstatus of answered
+      //adds answer object with a status of answered
       this.updateAnsweredStatus();
       if (this.answers.length < this.questions.length) {
         //set the questions that aren't answered to "no-answer"
@@ -168,6 +168,8 @@ export default {
 }
 .main-page {
   text-align: center;
+  width: 80%;
+  margin: auto;
 }
 .results {
   text-decoration: underline;
@@ -180,5 +182,15 @@ export default {
 .pass {
   font-weight: 700;
   color: green;
+}
+@media all and (max-width: 550px) and (min-width: 301px){
+  .main-page{
+    width: 100%;
+  }
+}
+@media all and (max-width: 300px){
+  *{
+    font-size: .65em;
+  }
 }
 </style>
