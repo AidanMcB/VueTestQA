@@ -1,42 +1,61 @@
 <template>
-  <div v-bind:class="dynamic">
+  <div v-bind:class="dynamic(question)" :key="componentKey">
     {{ index + 1}}.
     {{ question.question}}
-    <div v-for="(answers, index, key) in question.options" v-bind:key="key" v-bind:class="{correctAnswer: (status == 'incorrect' && question.options[index].answer == question.correctAnswer)}">
- 
-      <!-- value  -->
-        <div>
-          <input
-            type="radio"
-            :value="question.options[index].id"
-            v-model="question.id"
-            v-on:change="addAnswer(question.options[index])"
-          />
-          <label class="answers">{{question.options[index].answer}}</label>
-        </div>
+    <div
+      v-for="(answers, index) in question.options"
+      v-bind:key="answers.id"
+      v-bind:class="{correctAnswer: (status == 'incorrect' && question.options[index].answer == question.correctAnswer)}"
+    >
+      <div>
+        <input
+          type="radio"
+          :value="question.options[index].id"
+          v-model="question.id"
+          v-on:change="updateAnswer(question.options[index])"
+        />
+        <label class="answers">{{question.options[index].answer}}</label>
       </div>
-    
+    </div>
     <p class="cor-tag" v-if="status == 'correct'">Correct</p>
     <p class="wrong-tag" v-else-if="status == 'incorrect'">Incorrect</p>
   </div>
 </template>
 
 <script>
-//  v-on:change="addAnswer(question.options[index])"
 export default {
   name: "QuestionCard",
-  props: ["question", "index", "status", "answer", "rightAnswer"],
+  props: [
+    "question",
+    "index",
+    "status",
+    "answer",
+    "answers",
+    "rightAnswer",
+    "comKey",
+  ],
   data() {
     return {
-      // questionId: '',
-      // answer: '',
-      // correct: undefined,
+      componentKey: 0,
     };
   },
+  updated() {
+    this.dynamic(this.question);
+  },
   computed: {
-    dynamic: function (ans) {
+    showAnswer: function (ans) {
+      let rightAnswer = "undecorated";
+      if (ans.status == "incorrect" && ans.rightAnswer == this.rightAnswer) {
+        rightAnswer = "right-answer";
+      } else {
+        rightAnswer = "undecorated";
+      }
+      return rightAnswer;
+    },
+  },
+  methods: {
+    dynamic(ans) {
       let outerCardClass = "";
-    console.log(ans)
       if (ans.status == "correct") {
         outerCardClass = "correct";
       } else if (ans.status == "incorrect") {
@@ -46,26 +65,15 @@ export default {
       } else {
         outerCardClass = "qCard";
       }
-      // console.log(ans.correct)
       return outerCardClass;
     },
-    showAnswer: function (ans) {
-      // console.log(ans,"q=", this.question)
-      let rightAnswer = "undecorated";
-      if (ans.status == "incorrect" && ans.rightAnswer == this.rightAnswer) {
-        rightAnswer = "right-answer";
-      }else{
-        rightAnswer = "undecorated"
-      }
-      return rightAnswer;
+    forceRerender() {
+      this.componentKey += 1;
     },
-  },
-  methods: {
-    addAnswer(answer) {
-      this.$emit("addAnswer", answer);
-    },
-    printThis(x) {
-      console.log(x);
+    updateAnswer(answer) {
+      this.myAnswer = answer;
+      this.$emit("updateAnswer", answer);
+      this.$emit("forceRerender", this.forceRerender);
     },
   },
 };
@@ -75,7 +83,7 @@ export default {
 .undecorated {
   text-decoration: none;
 }
-.active{
+.active {
   color: blue;
   background-color: blue;
 }
