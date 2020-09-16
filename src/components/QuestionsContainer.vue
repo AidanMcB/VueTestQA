@@ -16,7 +16,8 @@
         />
         <!-- v-on:add-answer="$emit('add-answer', question.options[index].answer)" -->
       </div>
-      <input type="submit" value="Submit" class="btn" />
+      <input v-if="!this.submitted" type="submit" value="Submit" class="submit-btn" />
+      <input v-else v-on:click="restartQuiz" class="reload-btn" value="Reload" type="button" />
     </form>
     <div
       v-if="unfinished"
@@ -48,9 +49,6 @@ export default {
   props: ["questions"],
   methods: {
     handleSubmit(e) {
-      if(this.submitted){
-        window.location.reload()
-      }
       e.preventDefault();
       //sort the answers
       const answers = this.answers.sort((a, b) => {
@@ -109,13 +107,30 @@ export default {
         ...this.myQuestions.slice(index + 1), //copy everything after
       ];
     },
+    restartQuiz(){
+       if(this.submitted){
+        window.location.reload()
+      }
+    }
   },
 };
 </script>
 
 <style scoped>
-.btn {
-  padding: 0.25em;
+.submit-btn {
+  padding: .5em;
+  font-size: 1em;
+  color: white;
+  border: 1px solid black;
+  border-radius: 5px;
+  background-color: green;
+}
+.reload-btn{
+    padding: .5em;
+  font-size: 1em;
+  color: white;
+  border: 1px solid black;
+  border-radius: 5px;
   background-color: green;
 }
 .error-msg {
@@ -127,5 +142,9 @@ export default {
 .results {
   text-decoration: underline;
   font-size: 1em;
+}
+.percent{
+  font-weight: 700;
+  color: red;
 }
 </style>
