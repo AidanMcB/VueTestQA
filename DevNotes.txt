@@ -53,5 +53,6 @@ to iterate through
      printThis(x) {
       console.log(x);
     },
+    :class="{unanswerd: status != 'incorrect',  correctAnswer: status == 'incorrect' && question.options[index].answer == question.answer}
 
     change props to an object and specify the data type

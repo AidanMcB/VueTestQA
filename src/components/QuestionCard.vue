@@ -2,19 +2,20 @@
   <div v-bind:class="dynamic">
     {{ index + 1}}.
     {{ question.question}}
-    <div  v-for="(answers, index, key) in question.options" v-bind:key="key" class="options">
+    <div v-for="(answers, index, key) in question.options" v-bind:key="key" v-bind:class="{correctAnswer: (status == 'incorrect' && question.options[index].answer == question.correctAnswer)}">
+ 
       <!-- value  -->
-      <div v-bind:class="showAnswer(question)" >
-      <input 
-        type="radio"
-        :value="question.options[index].id"
-        v-model="question.id"
-        v-on:change="addAnswer(question.options[index])"
-      />
-      <label class="answers">{{question.options[index].answer}}</label>
+        <div>
+          <input
+            type="radio"
+            :value="question.options[index].id"
+            v-model="question.id"
+            v-on:change="addAnswer(question.options[index])"
+          />
+          <label class="answers">{{question.options[index].answer}}</label>
+        </div>
       </div>
-      <br />
-    </div>
+    
     <p class="cor-tag" v-if="status == 'correct'">Correct</p>
     <p class="wrong-tag" v-else-if="status == 'incorrect'">Incorrect</p>
   </div>
@@ -24,7 +25,7 @@
 //  v-on:change="addAnswer(question.options[index])"
 export default {
   name: "QuestionCard",
-  props: ["question", "index", "status", "answer"],
+  props: ["question", "index", "status", "answer", "rightAnswer"],
   data() {
     return {
       // questionId: '',
@@ -35,7 +36,7 @@ export default {
   computed: {
     dynamic: function (ans) {
       let outerCardClass = "";
-
+    console.log(ans)
       if (ans.status == "correct") {
         outerCardClass = "correct";
       } else if (ans.status == "incorrect") {
@@ -48,17 +49,16 @@ export default {
       // console.log(ans.correct)
       return outerCardClass;
     },
-    showAnswer: function (ans, question) {
-      console.log(ans, question)
+    showAnswer: function (ans) {
+      // console.log(ans,"q=", this.question)
       let rightAnswer = "undecorated";
-      if (ans.status == "incorrect"){
-        console.log("true")
-        rightAnswer = "right-answer"
+      if (ans.status == "incorrect" && ans.rightAnswer == this.rightAnswer) {
+        rightAnswer = "right-answer";
+      }else{
+        rightAnswer = "undecorated"
       }
       return rightAnswer;
-  
-
-    }
+    },
   },
   methods: {
     addAnswer(answer) {
@@ -72,12 +72,16 @@ export default {
 </script>
 
 <style scoped>
-.undecorated{
+.undecorated {
   text-decoration: none;
 }
-.right-answer{
+.active{
+  color: blue;
+  background-color: blue;
+}
+.correctAnswer {
   background-color: green;
-  color: green;
+  /* color: green; */
 }
 .no-answer {
   text-align: left;

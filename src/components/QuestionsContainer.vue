@@ -8,6 +8,7 @@
     <form @submit="handleSubmit">
       <div v-bind:key="question.id" v-for="(question, index) in questions">
         <QuestionCard
+          v-bind:rightAnswer="question.correctAnswer"
           v-bind:status="question.status"
           v-bind:index="index"
           v-bind:question="question"
@@ -31,9 +32,6 @@ export default {
   components: {
     QuestionCard,
   },
-  // mounted() {
-  //   this.correctAnswers = this.questions.map(q => q.correctAnswer)
-  // },
   data() {
     return {
       answers: [],
@@ -44,12 +42,15 @@ export default {
       score: 0,
       submitted: false,
       myQuestions: this.questions,
-      missedAnswer: ""
+      missedAnswer: "",
     };
   },
   props: ["questions"],
   methods: {
     handleSubmit(e) {
+      if(this.submitted){
+        window.location.reload()
+      }
       e.preventDefault();
       //sort the answers
       const answers = this.answers.sort((a, b) => {
@@ -71,12 +72,12 @@ export default {
       } else {
         //if questions are unanswered, display error message
         //do not submit the form
-        this.myQuestions.forEach( q => {
-          if(q.status == "undefined"){
-            q.status = "no-answer"
+        this.myQuestions.forEach((q) => {
+          if (q.status == "undefined") {
+            q.status = "no-answer";
           }
-        })
-        console.log(this.myQuestions)
+        });
+        console.log(this.myQuestions);
         this.submitted = false;
         this.unfinished = true;
       }
@@ -117,13 +118,13 @@ export default {
   padding: 0.25em;
   background-color: green;
 }
-.error-msg{
+.error-msg {
   color: red;
 }
 .main-page {
   text-align: center;
 }
-.results{
+.results {
   text-decoration: underline;
   font-size: 1em;
 }
