@@ -1,0 +1,37 @@
+QuestionsContainer.vue
+
+               -Line 3-7: You don't need to put a v-if on every element with that conditional rendering, you can put it on the <div> wrapping it and not repeat
+
+               -Line 6: Calculations should be done in computed properties rather than in the template
+
+               -Line 8: A form isn't necessary here because it won't be submitted and none of the form attributes are used. You can just use a regular button with @click so you don't need to preventDefault()
+
+               -line 43: You don't need to keep an array of the correct answers, if you keep the index of the correct answer option, and the chosen answer option in the question object (from questions.json) you can use computed properties to filter them differently depending on if they're correct / incorrect / unanswered
+
+               -line 52: percent() should be named something else like hasPassed or resultStatus. percent sounds like it's going to hold a percentage but it returns "pass" or "fail". The whole function can be written shorter with a ternary - return this.score > 6 ? 'pass' : 'fail'
+
+               -line 63: You don't need separate functions to set the answered and unanswered questions. The first thing this function should do is validate the questions, and then computed properties can handle everything about whether the question is answered / unanswered / correct / incorrect.
+
+               -line 95: Use findIndex() instead of both find() and indexOf(), it can do everything you need with just one method call
+
+               -line 99: You can use the splice() function
+
+               -line 136: Single page applications shouldn't refresh the page, if you want to let them restart then you can keep a generator function that returns the default state. Set data() with this initially, and then when you want to reset just call it again.
+
+              
+
+QuestionCard.vue
+
+               -:key should be on the component where you iterate with v-for rather than the root element of the component. I believe this is the reason you needed to use comKey in the parent component to get it to re-render
+
+               -Line 20-21 - no need to repeat the html here, the only difference between them is the style and the content of the tag. If you keep your status variable's value with the first letter capitalized, you can easily just output {{status}} and then use class bindings to handle the style
+
+               -Line 48: You don't need the else in this function, it was already assigned the value "undecorated" before the if statement, so if the if condition is not met, it's already set to what you have in the else. This can also be a one line ternary in the return statement
+
+               -Line 60: dynamic() is a vague function name. This may seem arbitrary since the computer doesn't care what you name things, but naming is one of the most deceptively difficult things to do in programming, but vital to readability especially when working with a team of developers. Functions represent actions that can be taken in the program, and should be named starting with a verb and then describe simply what the function does. This is also 12 lines but could be a 1 line function, `return question.status || 'qCard'`
+
+              
+
+The styles were also a bit off from the design that we sent. This is important to match 100% accurately, because as a front end developer you will receive mockups from your UI team and need to implement them exactly as designed.
+
+ 
