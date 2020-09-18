@@ -1,11 +1,11 @@
 <template>
   <div class="main-page">
-    <div>
-      <p class="results" v-if="this.submitted">Results</p>
-      <p v-if="this.submitted">You got {{this.score}} / {{this.questions.length}} questions correct</p>
-      <p v-bind:class="percent" v-if="this.submitted">{{ (this.score / this.myQuestions.length) * 100 }} %</p>
+    <div v-if="this.submitted">
+      <p class="results">Results</p>
+      <p >You got {{this.score}} / {{this.questions.length}} questions correct</p>
+      <p v-bind:class="hasPassed">{{yourScore}} %</p>
     </div>
-    <form @submit="handleSubmit">
+    <div >
       <div v-bind:key="question.id" v-for="(question, index) in myQuestions">
         <QuestionCard
           v-bind:rightAnswer="question.correctAnswer"
@@ -17,9 +17,9 @@
           v-on:updateAnswer="chooseAnswer"
         />
       </div>
-      <input v-if="!this.submitted" type="submit" value="Submit" class="submit-btn" />
+      <button v-if="!this.submitted" @click="handleSubmit" class="submit-btn">Submit</button>
       <input v-else v-on:click="restartQuiz" class="reload-btn" value="Reload" type="button" />
-    </form>
+    </div>
     <div
       v-if="unfinished"
       class="error-msg"
@@ -49,19 +49,16 @@ export default {
   },
   props: ["questions"],
   computed: {
-    percent() {
-      let percent = ""
-      if(this.score > 6){
-        percent = "pass"
-      }else{
-        percent = "fail"
-      }
-      return percent
+    yourScore() {
+      return (this.score / this.myQuestions.length) * 100 
+    },
+    hasPassed() {
+     return this.score > 6 ?'pass' : 'fail'
     }
   },
   methods: {
-    handleSubmit(e) {
-      e.preventDefault();
+    handleSubmit() {
+      // e.preventDefault();
       //adds answer object with a status of answered
       this.updateAnsweredStatus();
       if (this.answers.length < this.questions.length) {

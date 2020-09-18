@@ -1,14 +1,14 @@
 QuestionsContainer.vue
 
-               -Line 3-7: You don't need to put a v-if on every element with that conditional rendering, you can put it on the <div> wrapping it and not repeat
+            #   -Line 3-7: You don't need to put a v-if on every element with that conditional rendering, you can put it on the <div> wrapping it and not repeat
 
-               -Line 6: Calculations should be done in computed properties rather than in the template
+            #   -Line 6: Calculations should be done in computed properties rather than in the template
 
-               -Line 8: A form isn't necessary here because it won't be submitted and none of the form attributes are used. You can just use a regular button with @click so you don't need to preventDefault()
+            #   -Line 8: A form isn't necessary here because it won't be submitted and none of the form attributes are used. You can just use a regular button with @click so you don't need to preventDefault()
 
                -line 43: You don't need to keep an array of the correct answers, if you keep the index of the correct answer option, and the chosen answer option in the question object (from questions.json) you can use computed properties to filter them differently depending on if they're correct / incorrect / unanswered
 
-               -line 52: percent() should be named something else like hasPassed or resultStatus. percent sounds like it's going to hold a percentage but it returns "pass" or "fail". The whole function can be written shorter with a ternary - return this.score > 6 ? 'pass' : 'fail'
+            #   -line 52: percent() should be named something else like hasPassed or resultStatus. percent sounds like it's going to hold a percentage but it returns "pass" or "fail". The whole function can be written shorter with a ternary - return this.score > 6 ? 'pass' : 'fail'
 
                -line 63: You don't need separate functions to set the answered and unanswered questions. The first thing this function should do is validate the questions, and then computed properties can handle everything about whether the question is answered / unanswered / correct / incorrect.
 
