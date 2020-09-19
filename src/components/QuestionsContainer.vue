@@ -89,19 +89,13 @@ export default {
       //otherwise, add the answer to the array
       //prevents answers array from having two answers for the same question
       if (this.answers.some((ans) => ans.questionId === answer.questionId)) {
-        let double = this.answers.find(
-          (a) => a.questionId == answer.questionId
-        );
-        let index = this.answers.indexOf(double);
-        this.answers = [
-          ...this.answers.slice(0, index), //copy everything before answer
-          answer, // add the new answer
-          ...this.answers.slice(index + 1), //copy everything after answer
-        ];
+        let index = this.answers.findIndex(a => a.questionId == answer.questionId)
+        this.answers.splice(index, 1, answer)
       } else {
         //add new answer for question
         this.answers = [...this.answers, answer];
       }
+      console.log(this.answers)
     },
     updateAnsweredStatus() {
       //adds answer object with a status of "answered"
