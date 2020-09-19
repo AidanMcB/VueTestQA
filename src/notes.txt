@@ -12,9 +12,9 @@ QuestionsContainer.vue
 
                -line 63: You don't need separate functions to set the answered and unanswered questions. The first thing this function should do is validate the questions, and then computed properties can handle everything about whether the question is answered / unanswered / correct / incorrect.
 
-               -line 95: Use findIndex() instead of both find() and indexOf(), it can do everything you need with just one method call
+            #   -line 95: Use findIndex() instead of both find() and indexOf(), it can do everything you need with just one method call
 
-               -line 99: You can use the splice() function
+            #   -line 99: You can use the splice() function
 
                -line 136: Single page applications shouldn't refresh the page, if you want to let them restart then you can keep a generator function that returns the default state. Set data() with this initially, and then when you want to reset just call it again.
 
