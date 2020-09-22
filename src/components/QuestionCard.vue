@@ -1,5 +1,5 @@
 <template>
-  <div v-bind:class="dynamic(question)" :key="componentKey">
+  <div v-bind:class="cardStyle(question)" :key="componentKey">
     <p class="question-text">  {{ index + 1}}. {{ question.question}}</p>
     <div
       v-for="(answers, index) in question.options"
@@ -41,7 +41,7 @@ export default {
   },
   //when this component is updated, run the dynamc method passing it the question object
   updated() {
-    this.dynamic(this.question);
+    this.cardStyle(this.question);
   },
   computed: {
     //when the quiz is submitted, add style to the right answer that was missed
@@ -49,15 +49,13 @@ export default {
       let rightAnswer = "undecorated";
       if (ans.status == "incorrect" && ans.rightAnswer == this.rightAnswer) {
         rightAnswer = "right-answer";
-      } else {
-        rightAnswer = "undecorated";
       }
       return rightAnswer;
     },
   },
   methods: {
     //depending on the questions status after submission, style the q card
-    dynamic(question) {
+    cardStyle(question) {
       let outerCardClass = "";
       if (question.status == "correct") {
         outerCardClass = "correct";
