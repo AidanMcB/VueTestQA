@@ -26,9 +26,9 @@ QuestionCard.vue
 
                -Line 20-21 - no need to repeat the html here, the only difference between them is the style and the content of the tag. If you keep your status variable's value with the first letter capitalized, you can easily just output {{status}} and then use class bindings to handle the style
 
-               -Line 48: You don't need the else in this function, it was already assigned the value "undecorated" before the if statement, so if the if condition is not met, it's already set to what you have in the else. This can also be a one line ternary in the return statement
+            #   -Line 48: You don't need the else in this function, it was already assigned the value "undecorated" before the if statement, so if the if condition is not met, it's already set to what you have in the else. This can also be a one line ternary in the return statement
 
-               -Line 60: dynamic() is a vague function name. This may seem arbitrary since the computer doesn't care what you name things, but naming is one of the most deceptively difficult things to do in programming, but vital to readability especially when working with a team of developers. Functions represent actions that can be taken in the program, and should be named starting with a verb and then describe simply what the function does. This is also 12 lines but could be a 1 line function, `return question.status || 'qCard'`
+            #   -Line 60: dynamic() is a vague function name. This may seem arbitrary since the computer doesn't care what you name things, but naming is one of the most deceptively difficult things to do in programming, but vital to readability especially when working with a team of developers. Functions represent actions that can be taken in the program, and should be named starting with a verb and then describe simply what the function does. This is also 12 lines but could be a 1 line function, `return question.status || 'qCard'`
 
               
 
